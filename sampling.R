@@ -1,0 +1,21 @@
+library(dplyr)
+
+quad <- read.csv("Facebook Scraping - Quad- Connor.csv")
+freshmen <- read.csv("Facebook Scraping - Freshmen- Jessica.csv")
+dudley <- read.csv("Facebook Scraping - Dudley- Connor.csv")
+rivcentral <- read.csv("Facebook Scraping - River Central- Kaitlyn.csv")
+rivwest <- read.csv("Facebook Scraping - River West- Chris.csv")
+riveast <- read.csv("Facebook Scraping - River East- Kaitlyn.csv")
+
+q <- sample_n(quad, 100)
+rc <- sample_n(rivcentral, 100)
+rw <- sample_n(rivwest, 100)
+re <- sample_n(riveast, 100)
+fresh <- sample_n(freshmen, 400)
+dud <- sample_n(dudley, 10)
+dud <- select(dud, -Assigned.House)
+rw <- select(rw, -X, -X.1)
+sample <- bind_rows(fresh, dud, rw, re, rc, q)
+
+sample.emails <- data.frame(sample$Email)
+emails <- write.csv(sample.emails, "sample.emails.csv")
